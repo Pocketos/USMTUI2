@@ -10,5 +10,14 @@ namespace USMTUI2.Classes
 {
     class Usmt
     {
+        public void UsmtBackup()
+        {
+
+        }
+
+        public void UsmtRestore()
+        {
+
+        }
     }
 }

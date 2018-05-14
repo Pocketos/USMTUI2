@@ -12,16 +12,27 @@ namespace USMTUI2.Classes
 {
     class Validation
     {
-        public static void ValidateServername(string svrName)
+        public static int ValidateServername(string svrName)
         {
-            if(Directory.Exists(svrName))
+            string shareName = svrName + "\\Filesx64";
+            if(Directory.Exists(shareName))
             {
                 Messages.OKMessage("Server path OK!");
+                return 1;
             }
             else
             {
-                Messages.ErrorMessage("Nope!");
+                Messages.ErrorMessage("Server path invalid!");
+                return 0;
             }
+        }
+
+        public bool GetArch()
+        {
+            //Get the computer's architecture so we know hwat version of USMT to run
+            bool is64bit = !string.IsNullOrEmpty(
+                Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432"));
+            return is64bit;
         }
     }
 }
