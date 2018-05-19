@@ -29,7 +29,22 @@ namespace USMTUI2
             var is64bit = new Validation();
             bool arch = is64bit.GetArch();
 
-            Messages.ErrorMessage(Convert.ToString(arch));
+            //Sets the status to Backing Up Profile...
+            StatusText.Text = "Backing Up Profile...";
+
+            //Actvates the progress bar to indicate activity
+            ProgressBar.Value = 100;
+            ProgressBar.MarqueeAnimationSpeed = 50;
+
+            var getCMD = new Usmt();
+            getCMD.UsmtBackup(ServerName.Text, FolderName.Text);
+
+            //Sets the status to No Status
+            StatusText.Text = "No Status";
+
+            //Resets the progress bar
+            ProgressBar.Value = 0;
+            ProgressBar.MarqueeAnimationSpeed = 0;
         }
 
         private void ShareFolderBrowser_Click(object sender, EventArgs e)
@@ -42,8 +57,29 @@ namespace USMTUI2
                 sharePath = shareBrowser.SelectedPath;
                 ServerName.Text = sharePath;
                 Validation.ValidateServername(ServerName.Text);
-                StatusLabel.Text = Convert.ToString(Validation.ValidateServername(ServerName.Text));
+                StatusText.Text = Convert.ToString(Validation.ValidateServername(ServerName.Text));
             }
+        }
+
+        private void RestoreNow_Click(object sender, EventArgs e)
+        {
+            //Sets the status to Restoring Profile...
+            StatusText.Text = "Restoring Profile...";
+
+            //Actvates the progress bar to indicate activity
+            ProgressBar.Value = 100;
+            ProgressBar.MarqueeAnimationSpeed = 50;
+
+            var getCMD = new Usmt();
+            getCMD.UsmtRestore(ServerName.Text, FolderName.Text);
+
+            //Sets the status to No Status
+            StatusText.Text = "No Status";
+
+            //Resets the progress bar
+            ProgressBar.Value = 0;
+            ProgressBar.MarqueeAnimationSpeed = 0;
+
         }
     }
 }

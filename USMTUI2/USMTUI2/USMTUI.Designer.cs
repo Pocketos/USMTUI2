@@ -36,9 +36,11 @@
             this.StepTwoGroup = new System.Windows.Forms.GroupBox();
             this.RestoreNow = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.StatusText = new System.Windows.Forms.ToolStripStatusLabel();
             this.BottomToolStripSpacer = new System.Windows.Forms.ToolStripStatusLabel();
             this.ProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.FolderName = new System.Windows.Forms.TextBox();
             this.StepOneGroup.SuspendLayout();
             this.StepTwoGroup.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -60,9 +62,12 @@
             this.ServerName.Name = "ServerName";
             this.ServerName.Size = new System.Drawing.Size(216, 30);
             this.ServerName.TabIndex = 1;
+            this.ServerName.Text = "\\\\alpha\\usmt2";
             // 
             // StepOneGroup
             // 
+            this.StepOneGroup.Controls.Add(this.FolderName);
+            this.StepOneGroup.Controls.Add(this.label1);
             this.StepOneGroup.Controls.Add(this.ShareFolderBrowser);
             this.StepOneGroup.Controls.Add(this.ShareAddressLabel);
             this.StepOneGroup.Controls.Add(this.ServerName);
@@ -117,11 +122,12 @@
             this.RestoreNow.TabIndex = 1;
             this.RestoreNow.Text = "Restore";
             this.RestoreNow.UseVisualStyleBackColor = true;
+            this.RestoreNow.Click += new System.EventHandler(this.RestoreNow_Click);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel,
+            this.StatusText,
             this.BottomToolStripSpacer,
             this.ProgressBar});
             this.statusStrip1.Location = new System.Drawing.Point(0, 242);
@@ -130,27 +136,47 @@
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // StatusLabel
+            // StatusText
             // 
-            this.StatusLabel.AutoSize = false;
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(118, 17);
-            this.StatusLabel.Text = "Status";
-            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.StatusText.AutoSize = false;
+            this.StatusText.Name = "StatusText";
+            this.StatusText.Size = new System.Drawing.Size(118, 17);
+            this.StatusText.Text = "No Status";
+            this.StatusText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // BottomToolStripSpacer
             // 
             this.BottomToolStripSpacer.Name = "BottomToolStripSpacer";
-            this.BottomToolStripSpacer.Size = new System.Drawing.Size(306, 17);
+            this.BottomToolStripSpacer.Size = new System.Drawing.Size(275, 17);
             this.BottomToolStripSpacer.Spring = true;
             // 
             // ProgressBar
             // 
             this.ProgressBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.ProgressBar.AutoSize = false;
+            this.ProgressBar.MarqueeAnimationSpeed = 0;
             this.ProgressBar.Name = "ProgressBar";
             this.ProgressBar.Size = new System.Drawing.Size(200, 16);
-            this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.ProgressBar.Step = 0;
+            this.ProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(11, 90);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(109, 20);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Backup Name";
+            // 
+            // FolderName
+            // 
+            this.FolderName.Location = new System.Drawing.Point(15, 114);
+            this.FolderName.Name = "FolderName";
+            this.FolderName.Size = new System.Drawing.Size(212, 30);
+            this.FolderName.TabIndex = 4;
+            this.FolderName.Text = "test";
             // 
             // USMTUIForm
             // 
@@ -176,7 +202,6 @@
         #endregion
 
         private System.Windows.Forms.Button BackupNow;
-        private System.Windows.Forms.TextBox ServerName;
         private System.Windows.Forms.GroupBox StepOneGroup;
         private System.Windows.Forms.GroupBox StepTwoGroup;
         private System.Windows.Forms.Label ShareAddressLabel;
@@ -184,8 +209,11 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel BottomToolStripSpacer;
         private System.Windows.Forms.ToolStripProgressBar ProgressBar;
-        private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
+        private System.Windows.Forms.ToolStripStatusLabel StatusText;
         private System.Windows.Forms.Button ShareFolderBrowser;
+        private System.Windows.Forms.TextBox ServerName;
+        private System.Windows.Forms.TextBox FolderName;
+        private System.Windows.Forms.Label label1;
     }
 }
 
