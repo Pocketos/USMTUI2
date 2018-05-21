@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -21,30 +22,10 @@ namespace USMTUI2
 
         private void USMTUIForm_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void BackupNow_Click(object sender, EventArgs e)
-        {
-            var is64bit = new Validation();
-            bool arch = is64bit.GetArch();
-
-            //Sets the status to Backing Up Profile...
-            StatusText.Text = "Backing Up Profile...";
-
-            //Actvates the progress bar to indicate activity
-            ProgressBar.Value = 100;
-            ProgressBar.MarqueeAnimationSpeed = 50;
-
-            var getCMD = new Usmt();
-            getCMD.UsmtBackup(ServerName.Text, FolderName.Text);
-
-            //Sets the status to No Status
-            StatusText.Text = "No Status";
-
-            //Resets the progress bar
-            ProgressBar.Value = 0;
-            ProgressBar.MarqueeAnimationSpeed = 0;
+           //app.config settings
+            ServerName.Text = ConfigurationManager.AppSettings.Get("defaultServerPath");
+            FolderName.Text = ConfigurationManager.AppSettings.Get("defaultFolderPath");
+            
         }
 
         private void ShareFolderBrowser_Click(object sender, EventArgs e)
@@ -61,25 +42,54 @@ namespace USMTUI2
             }
         }
 
+        private void BackupNow_Click(object sender, EventArgs e)
+        {
+            if (Validation.ValidateServername(ServerName.Text) == 1)
+            {
+                //Sets the status to Backing Up Profile...
+                StatusText.Text = "Backing Up Profile...";
+
+                //Actvates the progress bar to indicate activity
+                ProgressBar.Style = ProgressBarStyle.Marquee;
+
+                var getCMD = new Usmt();
+                getCMD.UsmtBackup(ServerName.Text, FolderName.Text);
+
+                //Sets the status to No Status
+                StatusText.Text = "No Status";
+
+                //Resets the progress bar
+                ProgressBar.Style = ProgressBarStyle.Blocks;
+            }
+            else
+            {
+                Messages.ErrorMessage("Check the server name!");
+            }
+        }
+
         private void RestoreNow_Click(object sender, EventArgs e)
         {
-            //Sets the status to Restoring Profile...
-            StatusText.Text = "Restoring Profile...";
+            if (Validation.ValidateServername(ServerName.Text) == 1)
+            {
+                //Sets the status to Restoring Profile...
+                StatusText.Text = "Restoring Profile...";
 
-            //Actvates the progress bar to indicate activity
-            ProgressBar.Value = 100;
-            ProgressBar.MarqueeAnimationSpeed = 50;
+                //Actvates the progress bar to indicate activity
+                ProgressBar.Style = ProgressBarStyle.Marquee;
 
-            var getCMD = new Usmt();
-            getCMD.UsmtRestore(ServerName.Text, FolderName.Text);
+                var getCMD = new Usmt();
+                getCMD.UsmtRestore(ServerName.Text, FolderName.Text);
 
-            //Sets the status to No Status
-            StatusText.Text = "No Status";
+                //Sets the status to No Status
+                StatusText.Text = "No Status";
 
-            //Resets the progress bar
-            ProgressBar.Value = 0;
-            ProgressBar.MarqueeAnimationSpeed = 0;
-
+                //Resets the progress bar
+                ProgressBar.Style = ProgressBarStyle.Blocks;
+            }
+            else
+            {
+                Messages.ErrorMessage("Check the server name!");
+            }
         }
     }
 }

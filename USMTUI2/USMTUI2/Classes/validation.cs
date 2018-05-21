@@ -17,12 +17,10 @@ namespace USMTUI2.Classes
             string shareName = svrName + "\\Filesx64";
             if(Directory.Exists(shareName))
             {
-                Messages.OKMessage("Server path OK!");
                 return 1;
             }
             else
             {
-                Messages.ErrorMessage("Server path invalid!");
                 return 0;
             }
         }
